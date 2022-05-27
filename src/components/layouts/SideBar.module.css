@@ -1,0 +1,23 @@
+.sidebar {
+  height: 100%;
+  width: 30rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 1rem;
+  background-color: #f0f0f0;
+}
+
+.closesidebar {
+  border-radius: 50%;
+  border: 0.1rem #000 solid;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.5rem;
+  font-size: 2rem;
+  padding-top: 0;
+  cursor: pointer;
+  position: absolute;
+  right: 0.5rem;
+  top: 1.5rem;
+}
