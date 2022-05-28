@@ -1,32 +1,33 @@
 .product {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-  }
-  .name {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  
-  .brand {
-    font-size: 1.2rem;
-    font-weight: #808080;
-  }
-  
-  .price {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  
-  .image {
-    max-width: 34rem;
-    max-height: 34rem;
-  }
-  
-  .rating {
-    margin-bottom: 1rem;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.name {
+  font-size: 2rem;
+  font-weight: 300;
+  /* color: black; */
+  /* background-color: #4e769d; */
+  /* border-radius: 2rem;
+  padding: 0.5rem; */
+}
 
+.brand {
+  font-size: 1.2rem;
+  font-weight: #808080;
+}
 
+.price {
+  font-size: 2rem;
+  font-weight: bold;
+}
 
+.image {
+  max-width: 34rem;
+  max-height: 34rem;
+}
+
+.rating {
+  margin-bottom: 1rem;
+}

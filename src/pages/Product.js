@@ -25,7 +25,7 @@ const ProductScreen = (props) => {
               {product.ratings} Stars ({product.numReviews} Reviews)
             </li>
             <li>
-              Price: <b>{product.price}</b>
+              Price: $ <b>{product.price}</b>
             </li>
             <li>
               Description
