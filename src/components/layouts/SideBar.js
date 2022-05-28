@@ -4,7 +4,7 @@ const SideBar = (props) => {
   return (
     <aside className={classes.sidebar}>
       <h3>Shopping Catergories</h3>
-      <button className={classes.closesidebar} onClick={props.onCancel}>
+      <button className={classes.close} onClick={props.onCancel}>
         x
       </button>
       <ul>

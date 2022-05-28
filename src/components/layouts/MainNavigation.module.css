@@ -1,5 +1,3 @@
-
-
 .header {
   background-color: #203040;
   cursor: #ffff;
@@ -20,11 +18,15 @@
   padding: 0.5rem;
   background: none;
   border: none;
-  color: #ffff;
+  /* color: #ffff; */
   cursor: pointer;
 }
 
-.logo {
+.open {
+  color: #ffff;
+}
+
+.logo a {
   font-size: 2rem;
   color: white;
   font-weight: bold;

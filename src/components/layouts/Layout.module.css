@@ -1,4 +1,4 @@
-.grid-container {
+.grid {
   display: grid;
   grid-template-areas:
     "header"

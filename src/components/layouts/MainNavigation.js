@@ -18,9 +18,15 @@ const MainNavigation = () => {
   return (
     <header className={classes.header}>
       <div className={classes.brand}>
-        <button onClick={toggleSideBarHandler}>&#9776;</button>
+        <button className={classes.open} onClick={toggleSideBarHandler}>
+          &#9776;
+        </button>
+
         {showSideBar && <SideBar onCancel={toggleCloseSideBarHandler} />}
-        <div className={classes.logo}>amazon</div>
+        <div className={classes.logo}>
+          <Link to="/">amazon</Link>
+          {/* amazon */}
+        </div>
       </div>
       <nav>
         <ul className="header-links">
