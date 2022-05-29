@@ -1,30 +1,15 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import classes from "./Product.module.css";
-import { useContext } from "react";
-import CartContext from "../store/cart-context";
+import { useState } from "react";
 
 const ProductScreen = (props) => {
+  const [qty, setQty] = useState(1);
   const { id } = useParams();
-  console.log(id);
+  const history = useHistory();
   const product = props.datas.find((x) => x.id === id);
 
-  const cartsCtx = useContext(CartContext);
-  const itemIsCart = cartsCtx.itemIsCarts(props.id);
-
-  const toggleCartStatusHandler = () => {
-    if (itemIsCart) {
-      cartsCtx.removeFromCarts(props.id);
-    } else {
-      cartsCtx.addToCarts({
-        id: props.id,
-        name: props.name,
-        brand: props.brand,
-        category: props.category,
-        price: props.price,
-        ratings: props.ratings,
-        numReviews: props.numReviews,
-      });
-    }
+  const addToCartHandler = () => {
+    history.push("/carts/" + id + "?qty=" + qty);
   };
 
   return (
@@ -56,24 +41,28 @@ const ProductScreen = (props) => {
         <div className={classes.action}>
           <ul>
             <li>Price: $ {product.price}</li>
-            <li>Status: {product.status}</li>
             <li>
-              Qty:{" "}
-              <select>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              Status: {product.countInStock > 0 ? "In stock" : "Out of stock"}
+            </li>
+            <li>
+              Qty:
+              <select
+                value={qty}
+                onChange={(event) => setQty(event.target.value)}
+              >
+                {[...Array(product.countInStock).keys()].map((x) => (
+                  <option key={x + 1} value={x + 1}>
+                    {x + 1}
+                  </option>
+                ))}
               </select>
             </li>
             <li>
-              <button
-                onClick={toggleCartStatusHandler}
-                className={classes.button}
-              >
-                {itemIsCart ? "Remove from cart" : "Add to cart"}
-              </button>
+              {product.countInStock > 0 && (
+                <button onClick={addToCartHandler} className={classes.button}>
+                  Add to cart
+                </button>
+              )}
             </li>
           </ul>
         </div>

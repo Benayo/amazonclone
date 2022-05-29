@@ -39,6 +39,7 @@ const App = () => {
           price: data[key].price,
           ratings: data[key].ratings,
           numReviews: data[key].numReviews,
+          countInStock: data[key].countInStock,
         });
       }
 
