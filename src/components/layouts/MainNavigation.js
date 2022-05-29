@@ -31,7 +31,7 @@ const MainNavigation = () => {
       <nav>
         <ul className="header-links">
           <li>
-            <Link to="/products">Carts</Link>
+            <Link to="/carts">Carts</Link>
           </li>
           <li>
             <Link to="/">Sign In</Link>

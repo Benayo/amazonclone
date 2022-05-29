@@ -3,11 +3,12 @@ import classes from "./ProductList.module.css";
 
 const ProductList = (props) => {
   return (
-    <ul className={classes.products}>
+    <ul  className={classes.products}>
       {props.data.map((products) => (
         <ProductItem
-          key={products._id}
-          id={products._id}
+
+          key={products.id}
+          id={products.id}
           image={products.image}
           name={products.name}
           brand={products.brand}
@@ -15,6 +16,8 @@ const ProductList = (props) => {
           ratings={products.ratings}
           numReviews={products.numReviews}
         />
+
+        
       ))}
     </ul>
   );

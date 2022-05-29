@@ -1,11 +1,31 @@
 import { useParams, Link } from "react-router-dom";
 import classes from "./Product.module.css";
+import { useContext } from "react";
+import CartContext from "../store/cart-context";
 
 const ProductScreen = (props) => {
   const { id } = useParams();
-
   console.log(id);
-  const product = props.datas.find((x) => x._id === id);
+  const product = props.datas.find((x) => x.id === id);
+
+  const cartsCtx = useContext(CartContext);
+  const itemIsCart = cartsCtx.itemIsCarts(props.id);
+
+  const toggleCartStatusHandler = () => {
+    if (itemIsCart) {
+      cartsCtx.removeFromCarts(props.id);
+    } else {
+      cartsCtx.addToCarts({
+        id: props.id,
+        name: props.name,
+        brand: props.brand,
+        category: props.category,
+        price: props.price,
+        ratings: props.ratings,
+        numReviews: props.numReviews,
+      });
+    }
+  };
 
   return (
     <div>
@@ -48,7 +68,12 @@ const ProductScreen = (props) => {
               </select>
             </li>
             <li>
-              <button className={classes.button}>Add to cart</button>
+              <button
+                onClick={toggleCartStatusHandler}
+                className={classes.button}
+              >
+                {itemIsCart ? "Remove from cart" : "Add to cart"}
+              </button>
             </li>
           </ul>
         </div>

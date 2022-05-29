@@ -3,6 +3,7 @@ import "./App.css";
 import { Route, Switch } from "react-router-dom";
 import HomeScreen from "./pages/HomeScreen";
 import ProductScreen from "./pages/Product";
+import CartScreen from "./pages/CartScreen";
 
 import Layout from "./components/layouts/layout";
 import MainNavigation from "./components/layouts/MainNavigation";
@@ -11,6 +12,8 @@ import { useEffect, useState } from "react";
 
 const App = () => {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -18,15 +21,17 @@ const App = () => {
         "https://dummyproject-31624-default-rtdb.firebaseio.com/products.json"
       );
 
-      const data = await res.json();
+      if (!res.ok) {
+        throw new Error("Something went wrong!");
+      }
 
-      console.log(data);
+      const data = await res.json();
 
       const loadedProducts = [];
 
       for (const key in data) {
         loadedProducts.push({
-          _id: key,
+          id: key,
           name: data[key].name,
           image: data[key].image,
           brand: data[key].brand,
@@ -38,10 +43,30 @@ const App = () => {
       }
 
       setProducts(loadedProducts);
+      setIsLoading(false);
     };
 
-    fetchProducts();
+    fetchProducts().catch((err) => {
+      setIsLoading(false);
+      setHttpError(err.message);
+    });
   }, []);
+
+  if (isLoading) {
+    return (
+      <section className="loading">
+        <p>Loading...</p>
+      </section>
+    );
+  }
+
+  if (httpError) {
+    return (
+      <section className="error">
+        <p>{httpError}</p>
+      </section>
+    );
+  }
 
   return (
     <Layout>
@@ -52,6 +77,9 @@ const App = () => {
         </Route>
         <Route path="/products/:id">
           <ProductScreen datas={products} />
+        </Route>
+        <Route path="/carts">
+          <CartScreen />
         </Route>
       </Switch>
       <Footer />

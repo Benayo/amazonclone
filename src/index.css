@@ -23,4 +23,13 @@ a:hover {
   color: #ff8000;
 }
 
+.loading {
+  text-align: center;
+  color: #203040;
+}
+
+.error {
+  text-align: center;
+  color: red;
+}
 /* Home screen */
