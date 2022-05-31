@@ -1,15 +1,23 @@
-import { useParams, Link, useHistory } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import classes from "./Product.module.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import CartItemContext from "../store/cartItem-context";
 
 const ProductScreen = (props) => {
   const [qty, setQty] = useState(1);
   const { id } = useParams();
-  const history = useHistory();
+  // const history = useHistory();
   const product = props.datas.find((x) => x.id === id);
+  const cartCtx = useContext(CartItemContext);
 
-  const addToCartHandler = () => {
-    history.push("/carts/" + id + "?qty=" + qty);
+  const submitHandler = (amount) => {
+    cartCtx.addToCart({
+      id: product.id,
+      name: product.name,
+      brand: product.brand,
+      price: product.price,
+    });
+    // history.push("/carts/" + id + "?qty=" + qty);
   };
 
   return (
@@ -59,8 +67,8 @@ const ProductScreen = (props) => {
             </li>
             <li>
               {product.countInStock > 0 && (
-                <button onClick={addToCartHandler} className={classes.button}>
-                  Add to cart
+                <button onClick={submitHandler} className={classes.button}>
+                  + Add to cart
                 </button>
               )}
             </li>

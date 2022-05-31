@@ -1,12 +1,18 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import classes from "./MainNavigation.module.css";
 
+import CartItemContext from "../../store/cartItem-context";
 import SideBar from "./SideBar";
 
 const MainNavigation = () => {
   const [showSideBar, setShowSideBar] = useState(false);
+  const cartCtx = useContext(CartItemContext);
+
+  const numberOfCartItems = cartCtx.cartsItem.reduce((curNumber, item) => {
+    return curNumber + item.amount;
+  }, 0);
 
   const toggleSideBarHandler = () => {
     setShowSideBar(true);
@@ -25,14 +31,18 @@ const MainNavigation = () => {
         {showSideBar && <SideBar onCancel={toggleCloseSideBarHandler} />}
         <div className={classes.logo}>
           <Link to="/">amazon</Link>
-          {/* amazon */}
         </div>
       </div>
       <nav>
         <ul className="header-links">
           <li>
-            <Link to="/carts">Carts</Link>
+            <Link to="/favorites">Favorites</Link>
           </li>
+          <li className={classes.button}>
+            <Link to="/carts/:id">Your Cart</Link>
+            <span className={classes.badge}>{numberOfCartItems}</span>
+          </li>
+
           <li>
             <Link to="/">Sign In</Link>
           </li>
@@ -43,14 +53,3 @@ const MainNavigation = () => {
 };
 
 export default MainNavigation;
-
-// <header className="header">
-//         <div className="brand">
-//           <button onClick={openMenuHandler}>&#9776;</button>
-//           <a href="index.html">amazon</a>
-//         </div>
-//         <div className="header-links">
-//           <a href="cart.html">Cart</a>
-//           <a href="signin">Sign In</a>
-//         </div>
-//       </header>

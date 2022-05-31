@@ -1,14 +1,16 @@
 import "./App.css";
 
+import { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
+
 import HomeScreen from "./pages/HomeScreen";
 import ProductScreen from "./pages/Product";
-import CartScreen from "./pages/CartScreen";
-
 import Layout from "./components/layouts/layout";
 import MainNavigation from "./components/layouts/MainNavigation";
 import Footer from "./components/layouts/Footer";
-import { useEffect, useState } from "react";
+import FavoritesScreen from "./pages/FavoritesScreen";
+import CartScreen from "./pages/CartScreen";
+import { CartsItemContextProvider } from "./store/cartItem-context";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -70,21 +72,26 @@ const App = () => {
   }
 
   return (
-    <Layout>
-      <MainNavigation />
-      <Switch>
-        <Route path="/" exact>
-          <HomeScreen datas={products} />
-        </Route>
-        <Route path="/products/:id">
-          <ProductScreen datas={products} />
-        </Route>
-        <Route path="/carts">
-          <CartScreen />
-        </Route>
-      </Switch>
-      <Footer />
-    </Layout>
+    <CartsItemContextProvider>
+      <Layout>
+        <MainNavigation />
+        <Switch>
+          <Route path="/" exact>
+            <HomeScreen datas={products} />
+          </Route>
+          <Route path="/products/:id">
+            <ProductScreen datas={products} />
+          </Route>
+          <Route path="/favorites">
+            <FavoritesScreen />
+          </Route>
+          <Route path="/carts/:id">
+            <CartScreen />
+          </Route>
+        </Switch>
+        <Footer />
+      </Layout>
+    </CartsItemContextProvider>
   );
 };
 
