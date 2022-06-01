@@ -1,18 +1,16 @@
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 import classes from "./MainNavigation.module.css";
 
-import CartItemContext from "../../store/cartItem-context";
+
 import SideBar from "./SideBar";
 
 const MainNavigation = () => {
   const [showSideBar, setShowSideBar] = useState(false);
-  const cartCtx = useContext(CartItemContext);
 
-  const numberOfCartItems = cartCtx.cartsItem.reduce((curNumber, item) => {
-    return curNumber + item.amount;
-  }, 0);
+
+
 
   const toggleSideBarHandler = () => {
     setShowSideBar(true);
@@ -40,7 +38,7 @@ const MainNavigation = () => {
           </li>
           <li className={classes.button}>
             <Link to="/carts/:id">Your Cart</Link>
-            <span className={classes.badge}>{numberOfCartItems}</span>
+         
           </li>
 
           <li>

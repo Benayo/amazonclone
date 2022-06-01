@@ -46,8 +46,11 @@ const ProductItem = (props) => {
               onClick={toggleCartStatusHandler}
               className={classes.button}
             >
-              {itemIsCart ? "Remove from Cart" : "Add to cart"}
+              {itemIsCart ? "Remove from favorite" : "Add to favorite"}
             </button>
+          </div>
+          <div>
+            <button className={classes.button}>+ Add to cart</button>
           </div>
         </div>
       </li>

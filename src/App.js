@@ -10,12 +10,26 @@ import MainNavigation from "./components/layouts/MainNavigation";
 import Footer from "./components/layouts/Footer";
 import FavoritesScreen from "./pages/FavoritesScreen";
 import CartScreen from "./pages/CartScreen";
-import { CartsItemContextProvider } from "./store/cartItem-context";
+
 
 const App = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
+  const [cartItems, setCartItems] = useState([]);
+
+  const onAddToCart = (product) => {
+    const exist = cartItems.find((x) => x.id === product.id);
+    if (exist) {
+      setCartItems(
+        cartItems.map((x) =>
+          x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
+        )
+      );
+    } else {
+      setCartItems([...cartItems, { ...product, qty: 1 }]);
+    }
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -72,26 +86,24 @@ const App = () => {
   }
 
   return (
-    <CartsItemContextProvider>
-      <Layout>
-        <MainNavigation />
-        <Switch>
-          <Route path="/" exact>
-            <HomeScreen datas={products} />
-          </Route>
-          <Route path="/products/:id">
-            <ProductScreen datas={products} />
-          </Route>
-          <Route path="/favorites">
-            <FavoritesScreen />
-          </Route>
-          <Route path="/carts/:id">
-            <CartScreen />
-          </Route>
-        </Switch>
-        <Footer />
-      </Layout>
-    </CartsItemContextProvider>
+    <Layout>
+      <MainNavigation />
+      <Switch>
+        <Route path="/" exact>
+          <HomeScreen datas={products} />
+        </Route>
+        <Route path="/products/:id">
+          <ProductScreen onAddToCart={onAddToCart} datas={products} />
+        </Route>
+        <Route path="/favorites">
+          <FavoritesScreen />
+        </Route>
+        <Route path="/carts/:id">
+          <CartScreen onAddToCart={onAddToCart} cartItems={cartItems} />
+        </Route>
+      </Switch>
+      <Footer />
+    </Layout>
   );
 };
 

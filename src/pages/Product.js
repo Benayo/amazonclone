@@ -1,24 +1,13 @@
 import { useParams, Link } from "react-router-dom";
 import classes from "./Product.module.css";
-import { useContext, useState } from "react";
-import CartItemContext from "../store/cartItem-context";
+import { useState } from "react";
 
 const ProductScreen = (props) => {
   const [qty, setQty] = useState(1);
   const { id } = useParams();
-  // const history = useHistory();
-  const product = props.datas.find((x) => x.id === id);
-  const cartCtx = useContext(CartItemContext);
+  const { onAddToCart } = props;
 
-  const submitHandler = (amount) => {
-    cartCtx.addToCart({
-      id: product.id,
-      name: product.name,
-      brand: product.brand,
-      price: product.price,
-    });
-    // history.push("/carts/" + id + "?qty=" + qty);
-  };
+  const product = props.datas.find((x) => x.id === id);
 
   return (
     <div>
@@ -67,7 +56,10 @@ const ProductScreen = (props) => {
             </li>
             <li>
               {product.countInStock > 0 && (
-                <button onClick={submitHandler} className={classes.button}>
+                <button
+                  onClick={() => onAddToCart(product)}
+                  className={classes.button}
+                >
                   + Add to cart
                 </button>
               )}
