@@ -11,25 +11,11 @@ import Footer from "./components/layouts/Footer";
 import FavoritesScreen from "./pages/FavoritesScreen";
 import CartScreen from "./pages/CartScreen";
 
-
 const App = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
   const [cartItems, setCartItems] = useState([]);
-
-  const onAddToCart = (product) => {
-    const exist = cartItems.find((x) => x.id === product.id);
-    if (exist) {
-      setCartItems(
-        cartItems.map((x) =>
-          x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
-        )
-      );
-    } else {
-      setCartItems([...cartItems, { ...product, qty: 1 }]);
-    }
-  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -85,9 +71,35 @@ const App = () => {
     );
   }
 
+  const onAddToCart = (product) => {
+    const exist = cartItems.find((x) => x.id === product.id);
+    if (exist) {
+      setCartItems(
+        cartItems.map((x) =>
+          x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
+        )
+      );
+    } else {
+      setCartItems([...cartItems, { ...product, qty: 1 }]);
+    }
+  };
+
+  const onRemoveFromCart = (product) => {
+    const exist = cartItems.find((x) => x.id === product.id);
+    if (exist.qty === 1) {
+      setCartItems(cartItems.filter((x) => x.id !== product.id));
+    } else {
+      setCartItems(
+        cartItems.map((x) =>
+          x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x
+        )
+      );
+    }
+  };
+
   return (
     <Layout>
-      <MainNavigation />
+      <MainNavigation countCartItems={cartItems.length} />
       <Switch>
         <Route path="/" exact>
           <HomeScreen datas={products} />
@@ -99,7 +111,11 @@ const App = () => {
           <FavoritesScreen />
         </Route>
         <Route path="/carts/:id">
-          <CartScreen onAddToCart={onAddToCart} cartItems={cartItems} />
+          <CartScreen
+            onRemoveFromCart={onRemoveFromCart}
+            onAddToCart={onAddToCart}
+            cartItems={cartItems}
+          />
         </Route>
       </Switch>
       <Footer />

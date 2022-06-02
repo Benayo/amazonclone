@@ -3,14 +3,11 @@ import { useState } from "react";
 
 import classes from "./MainNavigation.module.css";
 
-
 import SideBar from "./SideBar";
 
-const MainNavigation = () => {
+const MainNavigation = (props) => {
   const [showSideBar, setShowSideBar] = useState(false);
-
-
-
+  const { countCartItems } = props;
 
   const toggleSideBarHandler = () => {
     setShowSideBar(true);
@@ -38,7 +35,7 @@ const MainNavigation = () => {
           </li>
           <li className={classes.button}>
             <Link to="/carts/:id">Your Cart</Link>
-         
+            <span className={classes.badge}>{countCartItems}</span>
           </li>
 
           <li>
