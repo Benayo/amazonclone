@@ -1,66 +1,113 @@
-.cart-items {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  max-height: 20rem;
-  overflow: auto;
-}
-
-.total {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: bold;
-  font-size: 1.5rem;
-  margin: 1rem 0;
-}
-
-.actions {
-  text-align: right;
-}
-
-.actions button {
-  font: inherit;
-  cursor: pointer;
-  background-color: transparent;
-  border: 1px solid #8a2b06;
-  padding: 0.5rem 2rem;
-  border-radius: 25px;
-  margin-left: 1rem;
-}
-
-.actions button:hover,
-.actions button:active {
-  background-color: #5a1a01;
-  border-color: #5a1a01;
-  color: white;
-}
-
-.actions .button--alt {
-  color: #8a2b06;
-}
-
-.actions .button {
-  background-color: #8a2b06;
-  color: white;
-}
 
 .remove {
   background-color: #f04040;
-  width: 1.5rem;
+
+  width: 2rem;
+  padding: 0.2rem;
+  margin: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  text-align: center;
+  cursor: pointer;
 }
 
 .add {
   background-color: #40c0f0;
-  width: 1.5rem;
+  width: 2rem;
+  padding: 0.2rem;
+  margin-right: 0.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  text-align: center;
+  cursor: pointer;
 }
 
-.text-right {
-  text-align: right;
+.buttons {
+  align-items: flex-end;
 }
 
 .cart {
   display: flex;
   flex-wrap: wrap;
+  margin: 1rem;
+  align-items: flex-start;
 }
 
+.list {
+  display: flex;
+  flex: 3 1 60rem;
+}
+.action {
+  flex: 1 1 20rem;
+  background-color: #f8f8f8;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+.container {
+  padding: 0;
+  list-style-type: none;
+  padding: 1rem;
+  width: 100%;
+  margin: 1rem;
+}
+
+/* .container li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  background-color: #fff;
+} */
+
+.results {
+  display: flex;
+}
+
+.container li {
+  /* background-color: #f68a32; */
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 0.1rem #808080 solid;
+}
+
+.container li:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.image {
+  max-width: 10rem;
+  max-height: 10rem;
+}
+.images {
+  flex: 1 1;
+}
+
+.name {
+  flex: 8 1;
+}
+
+.price {
+  flex: 1 1;
+  font-size: 2.5rem;
+  text-align: right;
+}
+
+.frame {
+  display: flex;
+  justify-content: space-between;
+}
+
+.primary {
+  padding: 1rem;
+  border: 0.1rem #808080 solid;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  background-color: #f68a32;
+  font-weight: 400;
+  color: #000;
+}
+
+.primary:hover {
+  border: 0.15rem #404040 solid;
+}
