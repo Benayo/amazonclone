@@ -49,9 +49,6 @@ const ProductItem = (props) => {
               {itemIsCart ? "Remove from favorite" : "Add to favorite"}
             </button>
           </div>
-          <div>
-            <button className={classes.button}>+ Add to cart</button>
-          </div>
         </div>
       </li>
     </Card>
